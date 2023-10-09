@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Board Game list</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+	<h1>A list of our board games!</h1>
+	<a href="/index">Back to the main page</a>
+	<a href=#>Log in here</a>
+	
+	<br>
+	<table>
+		<tr>
+			<th>Title</th>
+		<!--  	<th>Category</th> 
+			<th>Genre</th> -->
+			<th>Players</th>
+			<th>Show more</th>
+		</tr>
+		<tr th:each="boardgame : ${boardGames}">
+			<td th:text="${boardgame.title}"></td>
+		<!--  	<td th:text="${boardgame.category}"></td>
+			<td th:text="${boardgame.genre}"></td> -->
+			<td th:text="${boardgame.minPlayer} + ' – ' + ${boardgame.maxPlayer}"></td>
+			<td>Show more...</td>
+		</tr>
+	</table>
+	
+</body>
+</html>

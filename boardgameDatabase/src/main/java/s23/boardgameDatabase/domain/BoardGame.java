@@ -1,30 +1,35 @@
 package s23.boardgameDatabase.domain;
 
+import org.springframework.data.annotation.Id;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
+@Entity
 public class BoardGame {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
 	private String title;
 	private String description;
 	
-	private Long minPlayer;
-	private Long maxPlayer;
-	private Long minAge;
-	private Long maxAge;
+	private long minPlayer;
+	private long maxPlayer;
+	private long minAge;
 	
 	// Also category , genre, language
 	
 	public BoardGame() {}
 
-	public BoardGame(Long id, String title, String description, Long minPlayer, Long maxPlayer, Long minAge,
-			Long maxAge) {
-		super();
-		this.id = id;
+	public BoardGame(String title, String description, long minPlayer, long maxPlayer, long minAge) {
 		this.title = title;
 		this.description = description;
 		this.minPlayer = minPlayer;
 		this.maxPlayer = maxPlayer;
 		this.minAge = minAge;
-		this.maxAge = maxAge;
 	}
 
 	public Long getId() {
@@ -51,37 +56,28 @@ public class BoardGame {
 		this.description = description;
 	}
 
-	public Long getMinPlayer() {
+	public long getMinPlayer() {
 		return minPlayer;
 	}
 
-	public void setMinPlayer(Long minPlayer) {
+	public void setMinPlayer(long minPlayer) {
 		this.minPlayer = minPlayer;
 	}
 
-	public Long getMaxPlayer() {
+	public long getMaxPlayer() {
 		return maxPlayer;
 	}
 
-	public void setMaxPlayer(Long maxPlayer) {
+	public void setMaxPlayer(long maxPlayer) {
 		this.maxPlayer = maxPlayer;
 	}
 
-	public Long getMinAge() {
+	public long getMinAge() {
 		return minAge;
 	}
 
-	public void setMinAge(Long minAge) {
+	public void setMinAge(long minAge) {
 		this.minAge = minAge;
 	}
-
-	public Long getMaxAge() {
-		return maxAge;
-	}
-
-	public void setMaxAge(Long maxAge) {
-		this.maxAge = maxAge;
-	}
-	
 	
 }
