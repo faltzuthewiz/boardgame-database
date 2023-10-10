@@ -27,10 +27,14 @@ public class BoardGameController {
 	public String showBoardGameListPage(Model model) {
 	//	model.addAttribute("boardGames", bRepository.findAll());
 		
+		// Test data
 		List<BoardGame> boardGames = new ArrayList<>();
 		
 		boardGames.add(new BoardGame("Machi Koro", "demo description", 1, 4, 10));
 		boardGames.add(new BoardGame("High Society", "demo description", 3, 5, 14));
+		
+		// without the max player count
+		boardGames.add(new BoardGame("Patchwork - Tilkkutäkki", "testipeli", 2, 8));
 		model.addAttribute("boardGames", boardGames);
 		return "boardgamelist";
 	}

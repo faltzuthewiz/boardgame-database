@@ -32,6 +32,14 @@ public class BoardGame {
 		this.minAge = minAge;
 	}
 
+	public BoardGame(String title, String description, long minPlayer, long minAge) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.minPlayer = minPlayer;
+		this.minAge = minAge;
+	}
+
 	public Long getId() {
 		return id;
 	}

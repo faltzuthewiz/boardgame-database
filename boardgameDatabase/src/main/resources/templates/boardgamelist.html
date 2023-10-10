@@ -22,7 +22,10 @@
 			<td th:text="${boardgame.title}"></td>
 		<!--  	<td th:text="${boardgame.category}"></td>
 			<td th:text="${boardgame.genre}"></td> -->
-			<td th:text="${boardgame.minPlayer} + ' – ' + ${boardgame.maxPlayer}"></td>
+			<td>
+				<div th:if="${boardgame.maxPlayer != 0}" th:text="${boardgame.minPlayer} + ' – ' + ${boardgame.maxPlayer}"></div>
+				<div  th:if="${boardgame.maxPlayer == 0}" th:text="${boardgame.minPlayer}"></div>
+			</td>
 			<td>Show more...</td>
 		</tr>
 	</table>
