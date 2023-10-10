@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Bean;
 
 import s23.boardgameDatabase.domain.BoardGame;
 import s23.boardgameDatabase.domain.BoardGameRepository;
+import s23.boardgameDatabase.domain.Category;
+import s23.boardgameDatabase.domain.CategoryRepository;
+import s23.boardgameDatabase.domain.Genre;
+import s23.boardgameDatabase.domain.GenreRepository;
 
 @SpringBootApplication
 public class BoardgameDatabaseApplication {
@@ -15,10 +19,23 @@ public class BoardgameDatabaseApplication {
 		SpringApplication.run(BoardgameDatabaseApplication.class, args);
 	}
 	
-	/*
-	 * @Bean public CommandLineRunner demoData(BoardGameRepository bRepository) {
-	 * return (args) -> { bRepository.save(new BoardGame("Machi Koro",
-	 * "demo description", 1, 4, 10)); }; }
-	 */
+	
+	  @Bean public CommandLineRunner demoData(BoardGameRepository bRepository, CategoryRepository cRepository, GenreRepository gRepository) {
+	  return (args) -> { 
+		  cRepository.save(new Category("Board game"));
+		  cRepository.save(new Category("Card game"));
+		  
+		  gRepository.save(new Genre("City Building"));
+		  gRepository.save(new Genre("Family"));
+		  
+		  
+		  bRepository.save(new BoardGame("Machi Koro", "demo description", 1, 4, 10, cRepository.findByCategoryName("Card game").get(0), gRepository.findByGenreName("City Building").get(0))); 
+		  bRepository.save(new BoardGame("High Society", "demo description", 3, 5, 14, cRepository.findByCategoryName("Card game").get(0), gRepository.findByGenreName("Family").get(0)));
+			
+		  // without the max player count
+		  bRepository.save(new BoardGame("Patchwork - Tilkkutäkki", "testipeli", 2, 8));
+		  }; 
+	  }
+	 
 
 }

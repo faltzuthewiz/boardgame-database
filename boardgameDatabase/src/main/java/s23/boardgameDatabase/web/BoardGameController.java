@@ -10,13 +10,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import s23.boardgameDatabase.domain.BoardGame;
 import s23.boardgameDatabase.domain.BoardGameRepository;
+import s23.boardgameDatabase.domain.CategoryRepository;
 
 @Controller
 public class BoardGameController {
 	
-	/*
-	 * @Autowired private BoardGameRepository bRepository;
-	 */
+	
+	 @Autowired
+	 private BoardGameRepository bRepository;
+	 
+	 @Autowired
+	 private CategoryRepository cRepository;
+	 
 	
 	@GetMapping("/index")
 	public String showMainPage(Model model) {
@@ -25,9 +30,10 @@ public class BoardGameController {
 	
 	@GetMapping("/boardgamelist")
 	public String showBoardGameListPage(Model model) {
-	//	model.addAttribute("boardGames", bRepository.findAll());
+		model.addAttribute("boardGames", bRepository.findAll());
 		
 		// Test data
+		/*
 		List<BoardGame> boardGames = new ArrayList<>();
 		
 		boardGames.add(new BoardGame("Machi Koro", "demo description", 1, 4, 10));
@@ -35,7 +41,7 @@ public class BoardGameController {
 		
 		// without the max player count
 		boardGames.add(new BoardGame("Patchwork - Tilkkutäkki", "testipeli", 2, 8));
-		model.addAttribute("boardGames", boardGames);
+		model.addAttribute("boardGames", boardGames); */
 		return "boardgamelist";
 	}
 

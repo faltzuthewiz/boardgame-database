@@ -1,10 +1,12 @@
 package s23.boardgameDatabase.domain;
 
-import org.springframework.data.annotation.Id;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class BoardGame {
@@ -20,20 +22,30 @@ public class BoardGame {
 	private long maxPlayer;
 	private long minAge;
 	
+	@ManyToOne
+	@JoinColumn(name = "categoryId")
+	private Category category;
+	
+	@ManyToOne
+	@JoinColumn(name = "genreId")
+	private Genre genre;
+	
 	// Also category , genre, language
 	
 	public BoardGame() {}
 
-	public BoardGame(String title, String description, long minPlayer, long maxPlayer, long minAge) {
+	public BoardGame(String title, String description, long minPlayer, long maxPlayer, long minAge, Category category, Genre genre) {
 		this.title = title;
 		this.description = description;
 		this.minPlayer = minPlayer;
 		this.maxPlayer = maxPlayer;
 		this.minAge = minAge;
+		this.category = category;
+		this.genre = genre;
 	}
 
+	// Without the maxPlayer value
 	public BoardGame(String title, String description, long minPlayer, long minAge) {
-		super();
 		this.title = title;
 		this.description = description;
 		this.minPlayer = minPlayer;
@@ -87,5 +99,15 @@ public class BoardGame {
 	public void setMinAge(long minAge) {
 		this.minAge = minAge;
 	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	
+	
 	
 }
