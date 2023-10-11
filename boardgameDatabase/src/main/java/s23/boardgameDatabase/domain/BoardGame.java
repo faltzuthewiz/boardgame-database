@@ -107,6 +107,14 @@ public class BoardGame {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+
+	public Genre getGenre() {
+		return genre;
+	}
+
+	public void setGenre(Genre genre) {
+		this.genre = genre;
+	}
 	
 	
 	
