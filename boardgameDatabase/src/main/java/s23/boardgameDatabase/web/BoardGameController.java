@@ -6,10 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jakarta.validation.Valid;
 import s23.boardgameDatabase.domain.BoardGame;
 import s23.boardgameDatabase.domain.BoardGameRepository;
 import s23.boardgameDatabase.domain.CategoryRepository;
@@ -60,7 +63,13 @@ public class BoardGameController {
 	}
 	
 	@PostMapping("/save")
-	public String save(BoardGame boardGame) {
+	public String saveNewGame(@Valid @ModelAttribute("boardGame") BoardGame boardGame, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("boardGame", boardGame);
+			model.addAttribute("categories", cRepository.findAll());
+			model.addAttribute("genres", gRepository.findAll());
+			return "addboardgame";
+		}
 		bRepository.save(boardGame);
 		return "redirect:boardgamelist";
 	}

@@ -7,19 +7,37 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class BoardGame {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
+	@Size(min=2, max=100)
 	private String title;
+	
+	@NotNull
+	@Size(min=2, max=1000)
 	private String description;
 	
+	@NotNull
+	@Min(1)
 	private long minPlayer;
+	
+	@Min(0)
+	@Max(20)
 	private long maxPlayer;
+	
+	@NotNull
+	@Min(3)
+	@Max(30)
 	private long minAge;
 	
 	@ManyToOne
