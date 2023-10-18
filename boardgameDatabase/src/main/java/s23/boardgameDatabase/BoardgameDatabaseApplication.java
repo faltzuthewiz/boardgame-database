@@ -11,6 +11,8 @@ import s23.boardgameDatabase.domain.Category;
 import s23.boardgameDatabase.domain.CategoryRepository;
 import s23.boardgameDatabase.domain.Genre;
 import s23.boardgameDatabase.domain.GenreRepository;
+import s23.boardgameDatabase.domain.Language;
+import s23.boardgameDatabase.domain.LanguageRepository;
 
 @SpringBootApplication
 public class BoardgameDatabaseApplication {
@@ -20,7 +22,7 @@ public class BoardgameDatabaseApplication {
 	}
 	
 	
-	  @Bean public CommandLineRunner demoData(BoardGameRepository bRepository, CategoryRepository cRepository, GenreRepository gRepository) {
+	  @Bean public CommandLineRunner demoData(BoardGameRepository bRepository, CategoryRepository cRepository, GenreRepository gRepository, LanguageRepository lRepository) {
 	  return (args) -> { 
 		  cRepository.save(new Category("Board game"));
 		  cRepository.save(new Category("Card game"));
@@ -28,9 +30,12 @@ public class BoardgameDatabaseApplication {
 		  gRepository.save(new Genre("City Building"));
 		  gRepository.save(new Genre("Family"));
 		  
+		  lRepository.save(new Language("English"));
+		  lRepository.save(new Language("Finnish"));
 		  
-		  bRepository.save(new BoardGame("Machi Koro", "demo description", 1, 4, 10, cRepository.findByCategoryName("Card game").get(0), gRepository.findByGenreName("City Building").get(0))); 
-		  bRepository.save(new BoardGame("High Society", "demo description", 3, 5, 14, cRepository.findByCategoryName("Card game").get(0), gRepository.findByGenreName("Family").get(0)));
+		  
+		  bRepository.save(new BoardGame("Machi Koro", "demo description", 1, 4, 10, 30, cRepository.findByCategoryName("Card game").get(0), gRepository.findByGenreName("City Building").get(0), lRepository.findByLanguageName("English").get(0))); 
+		  bRepository.save(new BoardGame("High Society", "demo description", 3, 5, 14, 20, cRepository.findByCategoryName("Card game").get(0), gRepository.findByGenreName("Family").get(0), lRepository.findByLanguageName("English").get(0)));
 			
 		  // without the max player count
 		  bRepository.save(new BoardGame("Patchwork - Tilkkutäkki", "testipeli", 2, 8));

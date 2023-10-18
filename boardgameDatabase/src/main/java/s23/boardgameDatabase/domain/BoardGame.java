@@ -40,6 +40,11 @@ public class BoardGame {
 	@Max(30)
 	private long minAge;
 	
+	
+	// @Min(10)
+	@Max(180)
+	private long estDuration;
+	
 	@ManyToOne
 	@JoinColumn(name = "categoryId")
 	private Category category;
@@ -48,10 +53,13 @@ public class BoardGame {
 	@JoinColumn(name = "genreId")
 	private Genre genre;
 	
-	// Also category , genre, language
+	@ManyToOne
+	@JoinColumn(name = "languageId")
+	private Language language;
+	
 	
 	public BoardGame() {}
-
+	/*
 	public BoardGame(String title, String description, long minPlayer, long maxPlayer, long minAge, Category category, Genre genre) {
 		this.title = title;
 		this.description = description;
@@ -60,6 +68,21 @@ public class BoardGame {
 		this.minAge = minAge;
 		this.category = category;
 		this.genre = genre;
+	} */
+
+	public BoardGame(@NotNull @Size(min = 2, max = 100) String title,
+			@NotNull @Size(min = 2, max = 1000) String description, @NotNull @Min(1) long minPlayer,
+			@Min(0) @Max(20) long maxPlayer, @NotNull @Min(3) @Max(30) long minAge,
+			/*@Min(10) */ @Max(180) long estDuration, Category category, Genre genre, Language language) {
+		this.title = title;
+		this.description = description;
+		this.minPlayer = minPlayer;
+		this.maxPlayer = maxPlayer;
+		this.minAge = minAge;
+		this.estDuration = estDuration;
+		this.category = category;
+		this.genre = genre;
+		this.language = language;
 	}
 
 	// Without the maxPlayer value
@@ -132,6 +155,22 @@ public class BoardGame {
 
 	public void setGenre(Genre genre) {
 		this.genre = genre;
+	}
+
+	public long getEstDuration() {
+		return estDuration;
+	}
+
+	public void setEstDuration(long estDuration) {
+		this.estDuration = estDuration;
+	}
+
+	public Language getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(Language language) {
+		this.language = language;
 	}
 	
 	

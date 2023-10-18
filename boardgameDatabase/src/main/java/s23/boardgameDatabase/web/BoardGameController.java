@@ -18,6 +18,7 @@ import s23.boardgameDatabase.domain.BoardGame;
 import s23.boardgameDatabase.domain.BoardGameRepository;
 import s23.boardgameDatabase.domain.CategoryRepository;
 import s23.boardgameDatabase.domain.GenreRepository;
+import s23.boardgameDatabase.domain.LanguageRepository;
 
 @Controller
 public class BoardGameController {
@@ -31,6 +32,9 @@ public class BoardGameController {
 	 
 	 @Autowired
 	 private GenreRepository gRepository;
+	 
+	 @Autowired
+	 private LanguageRepository lRepository;
 	 
 	
 	@GetMapping("/index")
@@ -60,6 +64,7 @@ public class BoardGameController {
 		model.addAttribute("boardGame", new BoardGame());
 		model.addAttribute("categories", cRepository.findAll());
 		model.addAttribute("genres", gRepository.findAll());
+		model.addAttribute("languages", lRepository.findAll());
 		return "addboardgame";
 	}
 	
@@ -69,6 +74,7 @@ public class BoardGameController {
 			model.addAttribute("boardGame", boardGame);
 			model.addAttribute("categories", cRepository.findAll());
 			model.addAttribute("genres", gRepository.findAll());
+			model.addAttribute("languages", lRepository.findAll());
 			return "addboardgame";
 		}
 		bRepository.save(boardGame);
@@ -86,6 +92,7 @@ public class BoardGameController {
 		model.addAttribute("boardGame", bRepository.findById(id));
 		model.addAttribute("categories", cRepository.findAll());
 		model.addAttribute("genres", gRepository.findAll());
+		model.addAttribute("languages", lRepository.findAll());
 		
 		// add the edit page!
 		return "editboardgame";
@@ -98,6 +105,7 @@ public class BoardGameController {
 		model.addAttribute("boardGame", boardGame);
 		model.addAttribute("categories", cRepository.findAll());
 		model.addAttribute("genres", gRepository.findAll());
+		model.addAttribute("languages", lRepository.findAll());
 		return "boardgamedetails";
 	}
 
