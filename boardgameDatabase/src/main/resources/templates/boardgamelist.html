@@ -5,31 +5,38 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+	<a href=#>Log in here</a>
 	<h1>A list of our board games!</h1>
 	<a href="/index">Back to the main page</a>
-	<a href=#>Log in here</a>
-	
 	<br>
 	<table>
 		<tr>
 			<th>Title</th>
-		<!--  	<th>Category</th> 
-			<th>Genre</th> -->
+		 	<th>Category</th> 
+			<th>Genre</th>
 			<th>Players</th>
 			<th>Show more</th>
 		</tr>
 		<tr th:each="boardgame : ${boardGames}">
 			<td th:text="${boardgame.title}"></td>
-		<!--  	<td th:text="${boardgame.category}"></td>
-			<td th:text="${boardgame.genre}"></td> -->
+		  	<td th:text="${boardgame.category?.categoryName}"></td>
+			<td th:text="${boardgame.genre?.genreName}"></td>
 			<td>
 				<div th:if="${boardgame.maxPlayer != 0}" th:text="${boardgame.minPlayer} + ' – ' + ${boardgame.maxPlayer}"></div>
 				<div  th:if="${boardgame.maxPlayer == 0}" th:text="${boardgame.minPlayer}"></div>
 			</td>
-			<td>Show more...</td>
+			<td>
+				<a th:href="@{/boardgamelist/boardgame/{id}(id=${boardgame.id})}">Show more</a>
+			</td>
+			<td>
+				<a th:href="@{/edit/{id}(id=${boardgame.id})}">Edit</a>
+			</td>
+			<td>
+				<a th:href="@{/delete/{id}(id=${boardgame.id})}">Delete</a>
+			</td>
 		</tr>
 	</table>
-	<a href="/add">Add a new book</a>
+	<a href="/add">Add a new board game</a>
 	
 </body>
 </html>

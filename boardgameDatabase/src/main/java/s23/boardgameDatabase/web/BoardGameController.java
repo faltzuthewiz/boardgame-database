@@ -2,6 +2,7 @@ package s23.boardgameDatabase.web;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -92,7 +93,9 @@ public class BoardGameController {
 	
 	@GetMapping("/boardgamelist/boardgame/{id}")
 	public String showSpecificBoardGamePage(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("boardGame", bRepository.findById(id));
+		Optional<BoardGame> optionalBoardGame = bRepository.findById(id);
+		BoardGame boardGame = optionalBoardGame.get();
+		model.addAttribute("boardGame", boardGame);
 		model.addAttribute("categories", cRepository.findAll());
 		model.addAttribute("genres", gRepository.findAll());
 		return "boardgamedetails";
