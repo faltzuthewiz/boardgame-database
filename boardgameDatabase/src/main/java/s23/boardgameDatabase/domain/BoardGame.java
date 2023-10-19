@@ -41,7 +41,7 @@ public class BoardGame {
 	private long minAge;
 	
 	
-	// @Min(10)
+	@Min(10)
 	@Max(180)
 	private long estDuration;
 	
@@ -73,7 +73,7 @@ public class BoardGame {
 	public BoardGame(@NotNull @Size(min = 2, max = 100) String title,
 			@NotNull @Size(min = 2, max = 1000) String description, @NotNull @Min(1) long minPlayer,
 			@Min(0) @Max(20) long maxPlayer, @NotNull @Min(3) @Max(30) long minAge,
-			/*@Min(10) */ @Max(180) long estDuration, Category category, Genre genre, Language language) {
+			@Min(10) @Max(180) long estDuration, Category category, Genre genre, Language language) {
 		this.title = title;
 		this.description = description;
 		this.minPlayer = minPlayer;

@@ -1,7 +1,5 @@
 package s23.boardgameDatabase.web;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,16 +44,6 @@ public class BoardGameController {
 	public String showBoardGameListPage(Model model) {
 		model.addAttribute("boardGames", bRepository.findAll());
 		
-		// Test data
-		/*
-		List<BoardGame> boardGames = new ArrayList<>();
-		
-		boardGames.add(new BoardGame("Machi Koro", "demo description", 1, 4, 10));
-		boardGames.add(new BoardGame("High Society", "demo description", 3, 5, 14));
-		
-		// without the max player count
-		boardGames.add(new BoardGame("Patchwork - Tilkkutäkki", "testipeli", 2, 8));
-		model.addAttribute("boardGames", boardGames); */
 		return "boardgamelist";
 	}
 	
@@ -68,16 +56,29 @@ public class BoardGameController {
 		return "addboardgame";
 	}
 	
-	@PostMapping("/save")
-	public String saveNewGame(@Valid @ModelAttribute("boardGame") BoardGame boardGame, BindingResult bindingResult, Model model) {
+	@PostMapping("/savenew")
+	public String saveNewGame(@Valid @ModelAttribute("boardGame") BoardGame newBoardGame, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("boardGame", boardGame);
+			model.addAttribute("boardGame", newBoardGame);
 			model.addAttribute("categories", cRepository.findAll());
 			model.addAttribute("genres", gRepository.findAll());
 			model.addAttribute("languages", lRepository.findAll());
 			return "addboardgame";
 		}
-		bRepository.save(boardGame);
+		bRepository.save(newBoardGame);
+		return "redirect:boardgamelist";
+	}
+	
+	@PostMapping("/save-edited")
+	public String saveEditedGame(@Valid @ModelAttribute("boardGame") BoardGame editedBoardGame, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("boardGame", editedBoardGame);
+			model.addAttribute("categories", cRepository.findAll());
+			model.addAttribute("genres", gRepository.findAll());
+			model.addAttribute("languages", lRepository.findAll());
+			return "editboardgame";
+		}
+		bRepository.save(editedBoardGame);
 		return "redirect:boardgamelist";
 	}
 	
@@ -94,7 +95,6 @@ public class BoardGameController {
 		model.addAttribute("genres", gRepository.findAll());
 		model.addAttribute("languages", lRepository.findAll());
 		
-		// add the edit page!
 		return "editboardgame";
 	}
 	

@@ -38,7 +38,7 @@ public class BoardgameDatabaseApplication {
 		  bRepository.save(new BoardGame("High Society", "demo description", 3, 5, 14, 20, cRepository.findByCategoryName("Card game").get(0), gRepository.findByGenreName("Family").get(0), lRepository.findByLanguageName("English").get(0)));
 			
 		  // without the max player count
-		  bRepository.save(new BoardGame("Patchwork - Tilkkutäkki", "testipeli", 2, 8));
+		 // bRepository.save(new BoardGame("Patchwork - Tilkkutäkki", "testipeli", 2, 8));
 		  }; 
 	  }
 	 

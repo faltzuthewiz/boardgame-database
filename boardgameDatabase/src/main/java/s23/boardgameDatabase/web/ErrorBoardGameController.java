@@ -9,7 +9,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class BoardGameErrorController implements ErrorController {
+public class ErrorBoardGameController implements ErrorController {
 	
 	@RequestMapping("/error")
 	public String handleError(HttpServletRequest request) {

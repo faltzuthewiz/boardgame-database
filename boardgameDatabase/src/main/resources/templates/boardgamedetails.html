@@ -18,6 +18,8 @@
 	      <th>Min Players</th>
 	      <th>Max Players</th>
 	      <th>Min Age</th>
+	      <th>Estimated duration (minutes)</th>
+	      <th>Language</th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -27,6 +29,8 @@
 	      <td th:text="${boardGame.minPlayer}"></td>
 	      <td th:text="${boardGame.maxPlayer}"></td>
 	      <td th:text="${boardGame.minAge}"></td>
+	      <td th:text="${boardGame.estDuration}"></td>
+	      <td th:text="${boardGame.language.languageName}"></td>
 	    </tr>
 	  </tbody>
 	</table>
