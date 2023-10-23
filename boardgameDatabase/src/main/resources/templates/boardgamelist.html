@@ -1,21 +1,33 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 	<title>Board Game list</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
-	<a href=#>Log in here</a>
+	<a href="/logout">Log out</a>
+	<div>
+		Welcome <b sec:authentication="name"></b>, 
+        your role is <b sec:authentication="principal.authorities"></b>
+	</div>
 	<h1>A list of our board games!</h1>
-	<a href="/index">Back to the main page</a>
+	<a class="btn btn-primary" href="/index">Back to the main page</a>
 	<br>
-	<table>
+	<table class="table table-striped">
 		<tr>
 			<th>Title</th>
 		 	<th>Category</th> 
 			<th>Genre</th>
 			<th>Players</th>
 			<th>Show more</th>
+			<th sec:authorize="hasAuthority('ADMIN')">
+				Edit item?
+			</th>
+			<th sec:authorize="hasAuthority('ADMIN')">
+				Delete item?
+			</th>
 		</tr>
 		<tr th:each="boardgame : ${boardGames}">
 			<td th:text="${boardgame.title}"></td>
@@ -28,15 +40,15 @@
 			<td>
 				<a th:href="@{/boardgamelist/boardgame/{id}(id=${boardgame.id})}">Show more</a>
 			</td>
-			<td>
-				<a th:href="@{/edit/{id}(id=${boardgame.id})}">Edit</a>
+			<td sec:authorize="hasAuthority('ADMIN')">
+				<a class="btn btn-primary" th:href="@{/edit/{id}(id=${boardgame.id})}">Edit</a>
 			</td>
-			<td>
-				<a th:href="@{/delete/{id}(id=${boardgame.id})}">Delete</a>
+			<td sec:authorize="hasAuthority('ADMIN')">
+				<a class="btn btn-danger" th:href="@{/delete/{id}(id=${boardgame.id})}">Delete</a>
 			</td>
 		</tr>
 	</table>
-	<a href="/add">Add a new board game</a>
+	<a class="btn btn-success" sec:authorize="hasAuthority('ADMIN')" href="/add">Add a new board game</a>
 	
 </body>
 </html>

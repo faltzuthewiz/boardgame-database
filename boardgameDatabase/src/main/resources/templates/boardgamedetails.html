@@ -1,16 +1,22 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 	<title th:text="${boardGame.title}"></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
-	<a href=#>Log in here</a>
+	<div sec:authorize="hasAnyAuthority('ADMIN', 'USER')">
+		<a href="/logout">Log out</a> <br>
+		Welcome <b sec:authentication="name"></b>, 
+        your role is <b sec:authentication="principal.authorities"></b>
+	</div>
 	<h1 th:text="${boardGame.title}"></h1>
 	<div th:text="${boardGame.description}"></div><br>
-	<a href="/boardgamelist">Go back to the list page</a>
+	<a class="btn btn-primary" href="/boardgamelist">Go back to the list page</a>
 	
-	<table>
+	<table class="table table-striped">
 	  <thead>
 	    <tr>
 	      <th>Category</th>

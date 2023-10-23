@@ -1,6 +1,7 @@
 package s23.boardgameDatabase.domain;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,21 +30,25 @@ public class BoardGame {
 	
 	@NotNull
 	@Min(1)
+	@Column(name = "min_player")
 	private long minPlayer;
 	
 	@Min(0)
 	@Max(20)
+	@Column(name = "max_player")
 	private long maxPlayer;
 	
 	@NotNull
 	@Min(3)
 	@Max(30)
+	@Column(name = "min_age")
 	private long minAge;
 	
 	
 	@Min(10)
 	@Max(180)
-	private long estDuration;
+	@Column(name = "est_duration")
+	private Integer estDuration;
 	
 	@ManyToOne
 	@JoinColumn(name = "categoryId")
@@ -59,21 +64,11 @@ public class BoardGame {
 	
 	
 	public BoardGame() {}
-	/*
-	public BoardGame(String title, String description, long minPlayer, long maxPlayer, long minAge, Category category, Genre genre) {
-		this.title = title;
-		this.description = description;
-		this.minPlayer = minPlayer;
-		this.maxPlayer = maxPlayer;
-		this.minAge = minAge;
-		this.category = category;
-		this.genre = genre;
-	} */
 
 	public BoardGame(@NotNull @Size(min = 2, max = 100) String title,
 			@NotNull @Size(min = 2, max = 1000) String description, @NotNull @Min(1) long minPlayer,
 			@Min(0) @Max(20) long maxPlayer, @NotNull @Min(3) @Max(30) long minAge,
-			@Min(10) @Max(180) long estDuration, Category category, Genre genre, Language language) {
+			@Min(10) @Max(180) Integer estDuration, Category category, Genre genre, Language language) {
 		this.title = title;
 		this.description = description;
 		this.minPlayer = minPlayer;
@@ -85,13 +80,6 @@ public class BoardGame {
 		this.language = language;
 	}
 
-	// Without the maxPlayer value
-	public BoardGame(String title, String description, long minPlayer, long minAge) {
-		this.title = title;
-		this.description = description;
-		this.minPlayer = minPlayer;
-		this.minAge = minAge;
-	}
 
 	public Long getId() {
 		return id;
@@ -157,11 +145,11 @@ public class BoardGame {
 		this.genre = genre;
 	}
 
-	public long getEstDuration() {
+	public Integer getEstDuration() {
 		return estDuration;
 	}
 
-	public void setEstDuration(long estDuration) {
+	public void setEstDuration(Integer estDuration) {
 		this.estDuration = estDuration;
 	}
 

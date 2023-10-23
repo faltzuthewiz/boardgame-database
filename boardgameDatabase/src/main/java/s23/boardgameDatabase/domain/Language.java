@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,10 +19,12 @@ public class Language {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "language_id")
 	private Long languageId;
 	
 	@NotNull
 	@Size(min=2, max=30)
+	@Column(name = "language_name")
 	private String languageName;
 	
 	@JsonIgnore

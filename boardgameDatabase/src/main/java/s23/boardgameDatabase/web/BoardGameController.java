@@ -3,6 +3,7 @@ package s23.boardgameDatabase.web;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,6 +49,7 @@ public class BoardGameController {
 	}
 	
 	@GetMapping("/add")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String newBoardGame(Model model) {
 		model.addAttribute("boardGame", new BoardGame());
 		model.addAttribute("categories", cRepository.findAll());
@@ -57,6 +59,7 @@ public class BoardGameController {
 	}
 	
 	@PostMapping("/savenew")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String saveNewGame(@Valid @ModelAttribute("boardGame") BoardGame newBoardGame, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("boardGame", newBoardGame);
@@ -70,6 +73,7 @@ public class BoardGameController {
 	}
 	
 	@PostMapping("/save-edited")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String saveEditedGame(@Valid @ModelAttribute("boardGame") BoardGame editedBoardGame, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("boardGame", editedBoardGame);
@@ -83,12 +87,14 @@ public class BoardGameController {
 	}
 	
 	@GetMapping("/delete/{id}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String deleteBoardGame(@PathVariable("id") Long id, Model model) {
 		bRepository.deleteById(id);
 		return "redirect:../boardgamelist";
 	}
 	
 	@GetMapping("/edit/{id}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String editBoardGame(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("boardGame", bRepository.findById(id));
 		model.addAttribute("categories", cRepository.findAll());
