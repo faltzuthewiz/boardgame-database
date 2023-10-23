@@ -22,4 +22,9 @@ class WebLayerTest {
 		.andExpect(status().isOk());
 	}
 
+	// Expected to fail
+	@Test
+	public void apiStatusOk() throws Exception {
+		this.mockMvc.perform(get("/api/boardGames")).andExpect(status().isOk());
+	}
 }
